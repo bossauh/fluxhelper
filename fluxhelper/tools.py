@@ -13,9 +13,31 @@ import time
 import threading
 import random
 import string
+import sys
+import importlib
 from typing import Callable
 
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
+
+
+class ObjDebug(object):
+
+    """
+    Apply this to a class and you will be able to edit the methods of that class and have it update in real time.
+
+    Source: https://stackoverflow.com/a/15839513/12590728
+    """
+
+    def __getattribute__(self, k):
+        ga = object.__getattribute__
+        sa = object.__setattr__
+        cls = ga(self, "__class__")
+        modname = cls.__module__
+        mod = __import__(modname)
+        del sys.modules[modname]
+        importlib.reload(mod)
+        sa(self, "__class__", getattr(mod, cls.__name__))
+        return ga(self, k)
 
 
 class DatetimeTools:
