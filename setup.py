@@ -7,15 +7,15 @@ setup(
     description="Helper library made for my projects",
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
-    url="",
-    download_url="",
+    url="https://github.com/bossauh/fluxhelper/releases/tag/v_01",
+    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_01.tar.gz",
     keywords=["helper"],
     install_requires=[
         "pycaw",
         "termcolor"
     ],
     classifiers=[
-        "Development Status :: 5 - Production",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Build Tools",
         "License :: OSI Approved :: MIT License",
