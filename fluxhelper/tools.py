@@ -15,6 +15,7 @@ import random
 import string
 import sys
 import importlib
+from flask import jsonify
 from typing import Callable
 
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
@@ -253,3 +254,13 @@ def generateId(n: int, dictionary: str = None):
         dictionary = string.ascii_letters + string.digits
 
     return "".join(random.choices(dictionary, k=n))
+
+def makeResponse(data: dict = None, msg: str = "", status: int = 200):
+    response = {
+        "status": status,
+        "msg": "ok" if status == 200 else msg,
+        "data": data if data else {},
+        "timestamp": int(time.time())
+    }
+
+    return jsonify(response), status
