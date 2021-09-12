@@ -2,17 +2,18 @@ from distutils.core import setup
 setup(
     name="fluxhelper",
     packages=["fluxhelper"],
-    version="0.1",
+    version="0.2",
     license="MIT",
     description="Helper library made for my projects",
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
-    url="https://github.com/bossauh/fluxhelper/releases/tag/v_01",
-    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_01.tar.gz",
+    url="https://github.com/bossauh/fluxhelper",
+    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_02.tar.gz",
     keywords=["helper"],
     install_requires=[
         "pycaw",
-        "termcolor"
+        "termcolor",
+        "flask"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
