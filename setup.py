@@ -15,7 +15,10 @@ setup(
         "termcolor",
         "flask",
         "python-dateutil",
-        "requests"
+        "requests",
+        "pymongo",
+        "dnspython",
+        "montydb"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
