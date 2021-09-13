@@ -1,6 +1,8 @@
 import ntpath
 import random
 import time
+import threading
+import requests
 from inspect import getframeinfo, stack
 
 from termcolor import colored
@@ -33,9 +35,15 @@ class Logger:
     Yeah you get the rest
     """
 
-    def __init__(self, file=None, debug=False):
+    def __init__(self, file=None, debug=False, **kwargs):
         self.file = file
         self._debug = debug
+
+        self.host = kwargs.get("host")
+        self.port = kwargs.get("port")
+
+        self._forward = False
+        if self.host and self.port: self._forward = True
 
     def debug(self, t, **kwargs):
         if self._debug:
@@ -70,6 +78,16 @@ class Logger:
             time.sleep(random.uniform(0.05, 0.1))
 
         print(text)
+
+        if self._forward:
+            def f():
+                try:
+                    data = {"level": level, "text": t}
+                    requests.post(f"http://{self.host}:{self.port}/api/v1/log", json=data)
+                except requests.RequestException:
+                    self._forward = False
+                    self.error(f"Failed sending log request to server. Disabling forwarding to prevent further errors.")
+            threading.Thread(target=f, daemon=True).start()
 
 
 if __name__ == "__main__":
