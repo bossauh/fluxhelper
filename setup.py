@@ -13,7 +13,9 @@ setup(
     install_requires=[
         "pycaw",
         "termcolor",
-        "flask"
+        "flask",
+        "python-dateutil",
+        "requests"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
