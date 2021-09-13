@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
     name="fluxhelper",
     packages=["fluxhelper"],
-    version="0.3",
+    version="0.4",
     license="MIT",
     description="Helper library made for my projects",
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
     url="https://github.com/bossauh/fluxhelper",
-    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_03.tar.gz",
+    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_04.tar.gz",
     keywords=["helper"],
     install_requires=[
         "pycaw",
