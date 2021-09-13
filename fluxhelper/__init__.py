@@ -12,3 +12,4 @@ from .tools import *
 from .osInterface import *
 from flask import *
 from .jarvis import *
+from .database import Database
