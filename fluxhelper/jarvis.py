@@ -173,6 +173,14 @@ class API:
             return r["data"]["passed"], r["data"]["text"], r["data"]["modified"]
         return False, text, text
 
+    # API Status ✔️: Working properly.
+    async def changeSynthesizerVolume(self, volume: float):
+        """
+        Change the volume of jarvis' voice.
+        """
+
+        r = requests.post(self.apiUrl + "changeSynthesizerVolume", json={"volume": volume})
+        return r.json()
 
 @dataclass
 class Context:
