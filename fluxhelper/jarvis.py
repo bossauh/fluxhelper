@@ -190,6 +190,15 @@ class API:
         
         r = requests.post(self.apiUrl + "changeRecognizer", json={"recognizer": recognizer})
         return r.json()
+    
+    # API Status ✔️: Working properly.
+    async def changeSpeechLength(self, length: float):
+        """
+        Change the required speech length of the speech recognizer.
+        """
+
+        r = requests.post(self.apiUrl + "changeSpeechLength", json={"length": length})
+        return r.json()
 
 @dataclass
 class Context:
