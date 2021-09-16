@@ -181,6 +181,15 @@ class API:
 
         r = requests.post(self.apiUrl + "changeSynthesizerVolume", json={"volume": volume})
         return r.json()
+    
+    # API Status ✔️: Working properly.
+    async def changeRecognizer(self, recognizer: str):
+        """
+        Change the current speech recognizer in use.
+        """
+        
+        r = requests.post(self.apiUrl + "changeRecognizer", json={"recognizer": recognizer})
+        return r.json()
 
 @dataclass
 class Context:
