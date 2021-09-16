@@ -122,6 +122,7 @@ class API:
 
         self.apiUrl = self.url + "/api/v1/"
 
+    # API Status ✔️: Working properly.
     async def say(self, text: Union[str, list]):
 
         """
@@ -133,6 +134,7 @@ class API:
         r = requests.post(self.apiUrl + "say", json=data)
         return r.json()
 
+    # API Status ✔️: Working properly.
     async def process(self, text: str, **kwargs):
 
         """
@@ -153,6 +155,7 @@ class API:
             )
         return None
 
+    # API Status ✔️: Working properly.
     async def preprocess(self, text: str, **kwargs):
 
         """
