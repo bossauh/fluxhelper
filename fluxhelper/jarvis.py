@@ -199,6 +199,27 @@ class API:
 
         r = requests.post(self.apiUrl + "changeSpeechLength", json={"length": length})
         return r.json()
+    
+    # API Status ✔️: Working properly.
+    async def play(self, name: str, cls: str = None, **kwargs):
+        """
+        Play a piece of audio that is stored in the api.player library of jarvis (if cls is provided) or just play an audio file based on a given path. (Assuming that path exists on the server)
+
+        Jarvis is most likely going to be running in your own computer anyways.
+        """
+
+        data = {"cls": cls, "name": name, **kwargs}
+        r = requests.post(self.apiUrl + "audio/play", json=data)
+
+        return r.json()
+    
+    # API Status ✔️: Working properly.
+    async def stopAudio(self):
+        """
+        Literally just stops all audio being played.
+        """
+        
+        requests.post(self.apiUrl + "audio/stop")
 
 @dataclass
 class Context:
