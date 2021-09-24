@@ -20,6 +20,7 @@ class Database:
         self.connectionString = kwargs.get("connectionString")
         self.dbPath = kwargs.get("dbPath", "./db")
         self.logging = kwargs.get("logging")
+        self.cacheModified = kwargs.get("cacheModified", 5)
         self.dbName = dbName
 
         self.client = None
@@ -45,7 +46,7 @@ class Database:
 
         if self.type == "tinydb":
             try:
-                set_storage(self.dbPath, cache_modified=5)
+                set_storage(self.dbPath, cache_modified=self.cacheModified)
                 self.client = MontyClient(self.dbPath)
                 self.db = self.client[self.dbName]
 
