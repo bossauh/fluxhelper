@@ -182,13 +182,13 @@ class API:
         r = requests.post(self.apiUrl + "changeSynthesizerVolume", json={"volume": volume})
         return r.json()
     
-    # API Status ✔️: Working properly.
-    async def changeRecognizer(self, recognizer: str):
+    # API Status ⚪: Has yet to be tested.
+    async def setOfflineMode(self, status: bool):
         """
-        Change the current speech recognizer in use.
+        Set offline mode for jarvis to be either true or false.
         """
         
-        r = requests.post(self.apiUrl + "changeRecognizer", json={"recognizer": recognizer})
+        r = requests.post(self.apiUrl + "setOfflineMode", json={"status": status})
         return r.json()
     
     # API Status ✔️: Working properly.
