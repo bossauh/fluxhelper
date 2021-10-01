@@ -77,7 +77,10 @@ class Logger:
         if delay:
             time.sleep(random.uniform(0.05, 0.1))
 
-        print(text)
+        try:
+            print(text)
+        except:
+            pass
 
         if self._forward:
             def f():
