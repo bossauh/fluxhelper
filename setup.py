@@ -1,7 +1,7 @@
 from distutils.core import setup
 setup(
     name="fluxhelper",
-    packages=["fluxhelper"],
+    packages=["fluxhelper", "fluxhelper.jarvis"],
     version="0.6",
     license="MIT",
     description="Helper library made for my projects",
