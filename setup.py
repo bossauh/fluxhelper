@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name="fluxhelper",
     packages=["fluxhelper", "fluxhelper.jarvis"],
-    version="0.6",
+    version="0.6.1",
     license="MIT",
     description="Helper library made for my projects",
     author="Philippe Mathew",
@@ -18,7 +18,8 @@ setup(
         "requests",
         "pymongo",
         "dnspython",
-        "montydb"
+        "montydb",
+        "aiohttp"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
