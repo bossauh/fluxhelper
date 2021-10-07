@@ -11,5 +11,5 @@ from .logging import Logger
 from .tools import *
 from .osInterface import *
 from flask import *
-from .jarvis import *
+from .jarvis.api import API
 from .database import Database
