@@ -1,6 +1,7 @@
 from montydb import MontyClient, set_storage
 from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
+import motor.motor_asyncio
 
 
 class ConnectionError(Exception):
@@ -10,14 +11,14 @@ class ConnectionError(Exception):
 class Database:
 
     """
-    Initialize the database. All this class really does is decide whether to use MontyClient or MongoClient.
-    Used for when the user does not have mongodb installed.
+    Initialize a database. All this class really does is decide whether to use MontyClient or MongoClient or AsyncIOMotorClient.
     """
 
     def __init__(self, dbName: str, **kwargs):
 
         # Parameters
         self.connectionString = kwargs.get("connectionString")
+        self.useMotor = kwargs.get("useMotor", False)
         self.dbPath = kwargs.get("dbPath", "./db")
         self.logging = kwargs.get("logging")
         self.cacheModified = kwargs.get("cacheModified", 5)
@@ -29,11 +30,20 @@ class Database:
 
         if self.connectionString:
             try:
-                self.client = MongoClient(
-                    self.connectionString, serverSelectionTimeoutMS=2000
-                )
+                if not self.useMotor:
+                    self.client = MongoClient(
+                        self.connectionString, serverSelectionTimeoutMS=2000
+                    )
+                else:
+                    self.client = motor.motor_asyncio.AsyncIOMotorClient(
+                        self.connectionString, serverSelectionTimeoutMS=2000
+                    )
+
                 self.db = self.client[self.dbName]
-                self.client.server_info()
+
+                if not self.useMotor:
+                    self.client.server_info()
+
                 self.type = "mongo"
 
                 if self.logging:
