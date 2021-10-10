@@ -214,6 +214,8 @@ class API:
             Take a list of intents to choose from. By default this would be None and jarvis would choose from all intents in its current possesion.
         `bypassPreprocess` : bool
             If true, bypass preprocessing. (Will ignore if the text starts with a wakeword or not).
+        `requirements` : List[float]
+            List with 2 items corresponding to the probability requirements of jarvis. First value is the regular probability and second is the followup probability.
         `prefixes` : List[str]
             A list of prefixes to preprocess from. By default a list of prefixes will automaticlally be generated from jarvis' config.json
         
