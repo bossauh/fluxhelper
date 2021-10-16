@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
     name="fluxhelper",
     packages=["fluxhelper", "fluxhelper.jarvis"],
-    version="0.6.2",
+    version="0.7",
     license="MIT",
     description="Helper library made for my projects",
     author="Philippe Mathew",
     author_email="philmattdev@gmail.com",
     url="https://github.com/bossauh/fluxhelper",
-    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_06.tar.gz",
+    download_url="https://github.com/bossauh/fluxhelper/archive/refs/tags/v_07.tar.gz",
     keywords=["helper"],
     install_requires=[
         "pycaw",
@@ -19,7 +19,8 @@ setup(
         "pymongo",
         "dnspython",
         "montydb",
-        "aiohttp"
+        "aiohttp",
+        "motor"
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
