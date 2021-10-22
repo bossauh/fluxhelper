@@ -34,8 +34,33 @@ class API:
             requests.get(self.url)
         except requests.exceptions.RequestException as e:
             raise ConnectionError(f"Failed to connect to jarvis' server. Please check your url. ({e})")
+    
+    @property
+    def endpoint(self) -> str:
+        return self.url + "/api/v1/"
+    
+    def changeBase(self, host: str, port: str, protocol: str = "http") -> None:
+        """
+        Change the base url.
+
+        Parameters
+        ----------
+        `host` : str
+        `port` : str
+        `protocol` : str = "http"
+
+        Raises
+        ------
+        `ConnectionError` : When changing the base url failed because it is not valid or available.
+        """
+
+        url = f"{protocol}://{host}:{port}"
+        try:
+            requests.get(url)
+        except requests.exceptions.RequestException:
+            raise ConnectionError(f"Failed to change base url to {url}")
         
-        self.endpoint = self.url + "/api/v1/"
+        self.url = url
     
     async def request(self, url: str, method: str = "post", **kwargs) -> APIResponse:
         """
@@ -75,7 +100,7 @@ class API:
                         r.content_type,
                         await r.json()
                     )
-            except aiohttp.ClientResponseError as e:
+            except Exception as e:
                 raise APIRequestFailed(f"URL: {url} ({e})")
             
     async def play(self, name: str, cls: str = None, **kwargs) -> dict:
