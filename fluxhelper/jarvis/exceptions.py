@@ -13,3 +13,7 @@ class InvalidMethod(Exception):
 
 class UnknownServerError(Exception):
     """Raised when an error gets thrown in the server side but it's unknown. Highly unlikely to get raised."""
+
+
+class APIKeyError(Exception):
+    """Raised when the API key provided is not valid or there's no API key at all."""
