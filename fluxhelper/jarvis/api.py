@@ -28,10 +28,13 @@ class API:
 
         self.logging = logging
         self.url = f"{protocol}://{host}:{port}"
+        self.key = kwargs.get("key", ".")
 
         # Validate if the server is up
         try:
-            requests.get(self.url)
+            r = requests.get(self.endpoint, json={"__key__": self.key})
+            if r.status_code in [401, 403]:
+                raise APIKeyError(self.key)
         except requests.exceptions.RequestException as e:
             raise ConnectionError(f"Failed to connect to jarvis' server. Please check your url. ({e})")
     
@@ -86,6 +89,9 @@ class API:
                 "post": s.post,
                 "get": s.get
             }
+        
+        json_ = kwargs.pop("json", {})
+        json_["__key__"] = self.key
 
         async with aiohttp.ClientSession() as session:
             method_ = mappings(session).get(method)
@@ -93,13 +99,17 @@ class API:
                 raise InvalidMethod(f"{method} is not a valid method.")
             
             try:
-                async with method_(url, **kwargs) as r:
-                    return APIResponse(
+                async with method_(url, json=json_, **kwargs) as r:
+                    r = APIResponse(
                         r.status,
                         r.reason,
                         r.content_type,
                         await r.json()
                     )
+
+                    if r.status in [401, 403]:
+                        raise APIKeyError(self.key)
+
             except Exception as e:
                 raise APIRequestFailed(f"URL: {url} ({e})")
             
