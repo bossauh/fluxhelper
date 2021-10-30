@@ -37,7 +37,7 @@ class API:
     
     @property
     def endpoint(self) -> str:
-        return self.url + "/api/v1/"
+        return self.url + "/api/"
     
     def changeBase(self, host: str, port: str, protocol: str = "http") -> None:
         """
