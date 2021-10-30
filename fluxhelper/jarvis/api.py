@@ -109,6 +109,8 @@ class API:
 
                     if r.status in [401, 403]:
                         raise APIKeyError(self.key)
+                    
+                    return r
 
             except Exception as e:
                 raise APIRequestFailed(f"URL: {url} ({e})")
