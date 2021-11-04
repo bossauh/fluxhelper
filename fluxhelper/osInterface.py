@@ -7,9 +7,12 @@ import json
 import os
 import threading
 import time
+import sys
+from .exceptions import *
 from typing import Callable
 
-from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
+if sys.platform == "win32":
+    from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 
 
 def thread(target: Callable, *args):
@@ -79,6 +82,9 @@ def setVolume(value: float, process: str = None, smooth: bool = True):
     Allows you to set the volume of all processed. If proccess if provided it will change the volume only in that process or 
     if process startswith "!", then it will change the volume for all other processes except that.
     """
+
+    if sys.platform != "win32":
+        raise NotAvailable
 
     sessions = AudioUtilities.GetAllSessions()
 
