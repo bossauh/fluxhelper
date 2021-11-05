@@ -22,12 +22,11 @@ class APIResponse:
 
 
 class API:
-    def __init__(self, host: str, port: str, logging: object, **kwargs) -> None:
+    def __init__(self, url: str, logging: object, **kwargs) -> None:
         self.origin = kwargs.get("origin", "discord")
-        protocol = kwargs.get("httpProtocol", "http")
 
         self.logging = logging
-        self.url = f"{protocol}://{host}:{port}"
+        self.url = url
         self.key = kwargs.get("key", ".")
 
         # Validate if the server is up
@@ -42,7 +41,7 @@ class API:
     def endpoint(self) -> str:
         return self.url + "/api/"
     
-    def changeBase(self, host: str, port: str, protocol: str = "http") -> None:
+    def changeBase(self, url: str) -> None:
         """
         Change the base url.
 
@@ -56,8 +55,7 @@ class API:
         ------
         `ConnectionError` : When changing the base url failed because it is not valid or available.
         """
-
-        url = f"{protocol}://{host}:{port}"
+        
         try:
             requests.get(url)
         except requests.exceptions.RequestException:
