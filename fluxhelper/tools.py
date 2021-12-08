@@ -7,6 +7,7 @@ import importlib
 import random
 import string
 import sys
+import datetime
 
 
 class ObjDebug(object):
@@ -31,15 +32,92 @@ class ObjDebug(object):
 
 class DatetimeTools:
 
-    """
-    Just a fast way of formatting dates with .strftime
-    """
-
     def formatShort(dt):
         return dt.strftime("%b %d %Y at %I:%M %p")
 
     def formatLong(dt):
         return dt.strftime("%B %d %Y at %I:%M %p")
+    
+    def inXSeconds(dt: datetime.timedelta):
+        return dt.total_seconds()
+    
+    def inXMinutes(dt: datetime.timedelta):
+        return dt.total_seconds() / 60
+    
+    def inXHours(dt: datetime.timedelta):
+        return dt.total_seconds() / 3600
+    
+    def inXDays(dt: datetime.timedelta):
+        return dt.total_seconds() / 86400
+    
+    def inXWeeks(dt: datetime.timedelta):
+        return dt.total_seconds() / 604800
+    
+    def inXMonths(dt: datetime.timedelta):
+        return dt.total_seconds() / 2592000
+    
+    def inXYears(dt: datetime.timedelta):
+        return dt.total_seconds() / 31536000
+    
+    def autoInX(dt: datetime.timedelta):
+        totalSeconds = dt.total_seconds()
+
+        if totalSeconds < 60:
+            return f"{DatetimeTools.inXSeconds(dt)} second(s)"
+        elif totalSeconds < 3600:
+            minutes = DatetimeTools.inXMinutes(dt)
+
+            # Get remaining seconds
+            seconds = int(round(totalSeconds % 60))
+            if seconds == 0:
+                return f"{int(minutes)} minute(s)"
+
+            return f"{int(minutes)} minute(s) and {int(seconds)} second(s)"
+        elif totalSeconds < 86400:
+            hours = DatetimeTools.inXHours(dt)
+
+            # Get remaining minutes
+            minutes = int(round(totalSeconds % 3600 / 60))
+            if minutes == 0:
+                return f"{int(hours)} hour(s)"
+
+            return f"{int(hours)} hour(s) and {int(minutes)} minute(s)"
+        elif totalSeconds < 604800:
+            days = DatetimeTools.inXDays(dt)
+
+            # Get remaining hours
+            hours = int(round(totalSeconds % 86400 / 3600))
+            if hours == 0:
+                return f"{int(days)} day(s)"
+
+            return f"{int(days)} day(s) and {int(hours)} hour(s)"
+        elif totalSeconds < 2592000:
+            weeks = DatetimeTools.inXWeeks(dt)
+
+            # Get remaining days
+            days = int(round(totalSeconds % 604800 / 86400))
+            if days == 0:
+                return f"{int(weeks)} week(s)"
+
+            return f"{int(weeks)} week(s) and {int(days)} day(s)"
+        elif totalSeconds < 31536000:
+            months = DatetimeTools.inXMonths(dt)
+
+            # Get remaining weeks
+            weeks = int(round(totalSeconds % 2592000 / 604800))
+            if weeks == 0:
+                return f"{int(months)} month(s)"
+
+            return f"{int(months)} month(s) and {int(weeks)} week(s)"
+        else:
+            years = DatetimeTools.inXYears(dt)
+
+            # Get remaining months
+            months = int(round(totalSeconds % 31536000 / 2592000))
+            if months == 0:
+                return f"{int(years)} year(s)"
+
+            return f"{int(years)} year(s) and {int(months)} month(s)"
 
 
 def convertRange(val: float, old: tuple, new: tuple):
