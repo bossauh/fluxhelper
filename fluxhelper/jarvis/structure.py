@@ -40,6 +40,14 @@ class EntityParser:
     def durationParser(self) -> dt.datetime:
         val = self.value_
         now = dt.datetime.now()
+
+        # Convert val["months"] and val["years"] to days
+        if val["months"]:
+            val["days"] = val["months"] * 30
+        if val["years"]:
+            val["days"] = val["years"] * 365
+            
+
         future = now + dt.timedelta(
             days=val["days"],
             seconds=val["seconds"],
