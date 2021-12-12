@@ -22,6 +22,7 @@ class Database:
         self.dbPath = kwargs.get("dbPath", "./db")
         self.logging = kwargs.get("logging")
         self.cacheModified = kwargs.get("cacheModified", 5)
+        self.connectionTimeout = kwargs.get("connectionTimeout", 10000)
         self.dbName = dbName
 
         self.client = None
@@ -32,11 +33,11 @@ class Database:
             try:
                 if not self.useMotor:
                     self.client = MongoClient(
-                        self.connectionString, serverSelectionTimeoutMS=2000
+                        self.connectionString, serverSelectionTimeoutMS=self.connectionTimeout
                     )
                 else:
                     self.client = motor.motor_asyncio.AsyncIOMotorClient(
-                        self.connectionString, serverSelectionTimeoutMS=2000
+                        self.connectionString, serverSelectionTimeoutMS=self.connectionTimeout
                     )
 
                 self.db = self.client[self.dbName]
